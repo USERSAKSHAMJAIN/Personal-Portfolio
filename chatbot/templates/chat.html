@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natural Disaster Chatbot</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="/static/login.css">
+</head>
+
+<body>
+    <div class="chat-container">
+        <div class="chat-header">Natural Disaster Chatbot</div>
+        <div class="chat-body" id="chat-body">
+            <!-- Chat messages will be displayed here -->
+        </div>
+        <div class="input-container">
+            <input type="text" class="user-input" id="user-input" placeholder="Type your message...">
+            <button class="send-button" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <ul class="colorlib-bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            appendUserMessage(userInput);
+
+            // Make an AJAX request to the Flask server
+            $.ajax({
+                url: "/get_bot_response",
+                type: "POST",
+                data: { user_input: userInput },
+                success: function (data) {
+                    const botResponse = data.bot_response;
+                    appendBotMessage(botResponse);
+                },
+                error: function () {
+                    appendBotMessage("Error fetching response from the server.");
+                }
+            });
+        }
+
+        function appendUserMessage(message) {
+            const chatBody = document.getElementById('chat-body');
+            const userMessageElement = document.createElement('div');
+            userMessageElement.className = 'user-message';
+            userMessageElement.textContent = message;
+            chatBody.appendChild(userMessageElement);
+            document.getElementById('user-input').value = ''; // Clear the input field
+        }
+
+        function appendBotMessage(message) {
+            const chatBody = document.getElementById('chat-body');
+            const botMessageElement = document.createElement('div');
+            botMessageElement.className = 'bot-message';
+            botMessageElement.innerHTML = "<strong>Bot:</strong> " + message;
+            chatBody.appendChild(botMessageElement);
+        }
+    </script>
+</body>
+
+</html>

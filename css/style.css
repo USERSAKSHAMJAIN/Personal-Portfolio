@@ -452,6 +452,7 @@ h6,
   line-height: 1.2;
 }
 
+
 hr {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -8172,6 +8173,11 @@ button.bg-dark:focus {
   -ms-flex-item-align: stretch !important;
   -ms-grid-row-align: stretch !important;
   align-self: stretch !important;
+
+}
+
+.nmi {
+  display: inline;
 }
 
 @media (min-width: 576px) {
@@ -12347,7 +12353,7 @@ h5,
   -o-transition: all 0.7s ease;
   -webkit-transition: all 0.7s ease;
   -ms-transition: all 0.7s ease;
-  transition: all 0.7s ease;
+  transition: all 0.1s ease;
   opacity: 1;
 }
 
